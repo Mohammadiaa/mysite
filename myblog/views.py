@@ -10,9 +10,26 @@ def myblog_view(request):
 
 def myblog_single(request, pid):
     post = get_object_or_404(Post, id=pid, status=1, published_date__lte=timezone.now())
-    context = {'Posts': post} 
+    
+    all_posts = list(Post.objects.filter(status=1, published_date__lte=timezone.now()).order_by('published_date'))
+    current_post_index = all_posts.index(post)
+
+    prev_post = None
+    next_post = None
+
+    if current_post_index > 0: #قبلش پست هست
+        prev_post = all_posts[current_post_index - 1]
+
+    if current_post_index < len(all_posts) - 1: #بعدش پست هست
+        next_post = all_posts[current_post_index + 1]
+
+    context = {
+               'post': post,
+               'prev_post': prev_post,
+               'next_post': next_post} 
+    
     post.counted_views += 1
     post.save()  
 
-    context = {'post': post}
+    
     return render(request, 'myblog/blog-single.html', context)
