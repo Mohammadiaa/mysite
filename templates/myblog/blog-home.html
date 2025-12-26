@@ -132,7 +132,7 @@
             <a class="posts-title" href="{% url 'myblog:single' pid=post.id %}">
               <h3>{{post.title}}</h3>
             </a>
-            <p class="excert">{{ post.content|truncatechars:100 }}</p>
+            <p class="excert">{{ post.content|truncatewords:20 }}</p>
             <a href="{% url 'myblog:single' pid=post.id %}" class="primary-btn"
               >View More</a
             >
@@ -242,7 +242,7 @@
           </div>
 
          {% include "myblog/blog-asd.html" %}
-         
+
           <div class="single-sidebar-widget post-category-widget">
             <h4 class="category-title">Post Catgories</h4>
             <ul class="cat-list">
