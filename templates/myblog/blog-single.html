@@ -252,87 +252,17 @@
 
              {% include "myblog/blog-writer.html" %}
 
-          <div class="single-sidebar-widget popular-post-widget">
-            <h4 class="popular-title">Popular Posts</h4>
-            <div class="popular-post-list">
-              <div class="single-post-list d-flex flex-row align-items-center">
-                <div class="thumb">
-                  <img
-                    class="img-fluid"
-                    src="{% static 'img/blog/pp1.jpg' %}"
-                    alt=""
-                  />
-                </div>
-                <div class="details">
-                  <a href="#"><h6>Space The Final Frontier</h6></a>
-                  <p>02 Hours ago</p>
-                </div>
-              </div>
-              <div class="single-post-list d-flex flex-row align-items-center">
-                <div class="thumb">
-                  <img
-                    class="img-fluid"
-                    src="{% static 'img/blog/pp2.jpg' %}"
-                    alt=""
-                  />
-                </div>
-                <div class="details">
-                  <a href="#"><h6>The Amazing Hubble</h6></a>
-                  <p>02 Hours ago</p>
-                </div>
-              </div>
-            </div>
-          </div>
+             {% include "myblog/blog-popular-posts.html" %}
 
-          {% include "myblog/blog-asd.html" %}
+             {% include "myblog/blog-asd.html" %}
           
-          <div class="single-sidebar-widget post-category-widget">
-            <h4 class="category-title">Post Catgories</h4>
-            <ul class="cat-list">
-              {% for cat in post.category.all %}
-              <li>
-                <a href="#" class="d-flex justify-content-between"
-                  ><p>{{ cat.name }}</p></a
-                >
-              </li>
-              {% endfor %}
-            </ul>
-          </div>
-          <div class="single-sidebar-widget newsletter-widget">
-            <h4 class="newsletter-title">Newsletter</h4>
-            <p>
-              Here, I focus on a range of items and features that we use in
-              life.
-            </p>
-            <div class="form-group d-flex flex-row">
-              <div class="col-autos">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="fa fa-envelope" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter email"
-                    onfocus="this.placeholder = ''"
-                    onblur="this.placeholder = 'Enter email'"
-                  />
-                </div>
-              </div>
-              <a href="#" class="bbtns">Subcribe</a>
-            </div>
-          </div>
-          <div class="single-sidebar-widget tag-cloud-widget">
-            <h4 class="tagcloud-title">Tag Clouds</h4>
-            <ul>
-              <li><a href="#">Technology</a></li>
-              <li><a href="#">Fashion</a></li>
-              <li><a href="#">Food</a></li>
-              <li><a href="#">Lifestyle</a></li>
-            </ul>
-          </div>
+             {% include "myblog/blog-post-categories.html" %}
+          
+             {% include "myblog/blog-newsletter.html" %}
+
+             {% include "myblog/blog-search.html" %}
+
+             {% include "myblog/blog-tags.html" %}
         </div>
       </div>
     </div>
