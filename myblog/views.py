@@ -33,3 +33,6 @@ def myblog_single(request, pid):
 
     
     return render(request, 'myblog/blog-single.html', context)
+
+def test(request):
+    return render(request, 'myblog/test.html')
