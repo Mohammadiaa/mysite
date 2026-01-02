@@ -2632,7 +2632,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .single-destination .thumb img {
-  width: 100%;
+  width: 100px;
+  max-width: 100px;
 }
 
 .single-destination .desc {
@@ -3655,7 +3656,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .widget-wrap .popular-post-widget .popular-post-list .thumb img {
-  width: 100%;
+  width: 100px;
+  
 }
 
 .widget-wrap .popular-post-widget .single-post-list {
@@ -4493,4 +4495,15 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .footer-text a, .footer-text i {
   color: #f8b600;
+}
+
+aside.single-sidebar-widget.popular-post-widget .popular-post-list .single-post-list .thumb img {
+    width: 60px !important;
+    height: 60px !important;
+    max-width: none !important;
+}
+
+aside.single-sidebar-widget.popular-post-widget .popular-post-list .single-post-list .thumb {
+    width: 60px !important;
+    flex: 0 0 60px !important;
 }
