@@ -10,7 +10,7 @@
 
     {% get_all_posts as posts_list %} 
     {% for post in posts_list %}
-    <p>{{ post.title }}</p>
+    <p>{{ post.content|snippet:50 }}</p>
     {% endfor %}
   </body>
 </html>
