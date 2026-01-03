@@ -105,7 +105,7 @@
           <div class="col-lg-3 col-md-3 meta-details">
             <ul class="tags">
               {% for cat in post.category.all %}
-              <li><a href="#">{{cat.name}},</a></li>
+              <li><a href="{% url 'myblog:category' cat_name=cat.name %}">{{cat.name}},</a></li>
               {% endfor %}
             </ul>
             <div class="user-details row">
