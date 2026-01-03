@@ -46,3 +46,16 @@ def blog_category(request, cat_name):
     posts = posts.filter(category__name = cat_name)
     context = {'posts': posts}
     return render(request, 'myblog/blog-home.html', context)
+
+def blog_search(request):
+    #print(request.__dict__)
+    posts = Post.objects.filter(status=1)
+    if request.method == "GET":
+        #print("get request")
+        s_query = request.GET.get('s')
+
+        if s_query:
+         posts = posts.filter(content__icontains = s_query )
+
+    context = {'posts': posts}
+    return render(request, 'myblog/blog-home.html', context)
