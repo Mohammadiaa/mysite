@@ -1,4 +1,4 @@
-{% load myblog_tags %}
+{% load myblog_tags %} 
 {% load static %} 
 
 {% for post in posts %}
@@ -6,6 +6,7 @@
   <div class="thumb">
     <img class="img-fluid" src="{{ post.image.url }}" alt="" />
   </div>
+
   <div class="details">
     <div class="tags">
       <ul>
@@ -13,14 +14,16 @@
         <li>
           <a href="#">{{ cat.name }}</a>
         </li>
-        {% endfor %}
+         {% endfor %}
       </ul>
     </div>
-    <a href="{% url 'myblog:single' pid=post.id %}"><h4 class="title">{{ post.title }}</h4></a>
-    <p>
-    {{ post.content|snippet:15 }}
-    </p>
+   
+    <a href="{% url 'myblog:single' pid=post.id %}">
+      <h4 class="title">{{ post.title }}</h4>
+    </a>
+   
+    <p>{{ post.content|snippet:15 }}</p>
     <h6 class="date">{{ post.published_date|date:"d M Y" }}</h6>
   </div>
-  {% endfor %}
 </div>
+  {% endfor %}
