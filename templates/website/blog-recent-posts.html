@@ -12,7 +12,7 @@
       <ul>
         {% for cat in post.category.all %}
         <li>
-          <a href="#">{{ cat.name }}</a>
+          <a href="{% url 'myblog:category' cat.name %}">{{ cat.name }}</a>
         </li>
          {% endfor %}
       </ul>
