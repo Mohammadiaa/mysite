@@ -1,5 +1,5 @@
 from django import forms
-from website.models import Contact
+from website.models import Contact, newsletter
 class NamForm(forms.Form):
     name = forms.CharField(max_length=255)
     email = forms.EmailField()
@@ -11,3 +11,8 @@ class ContactForm(forms.ModelForm):
     class Meta:
             model = Contact
             fields = '__all__'
+
+class newsletterForm(forms.ModelForm):
+     class Meta:
+          model = newsletter
+          fields = "__all__"

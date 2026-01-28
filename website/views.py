@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from website.models import Contact
-from website.forms import NamForm, ContactForm
+from website.forms import NamForm, ContactForm, newsletterForm
 
 
 def index_view(request):
@@ -17,13 +17,26 @@ def contact_view(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            
+
             return redirect('/')
         else:
             print("Form is NOT valid! Errors found:")
-           
+
     form = ContactForm()
     return render(request, "website/contact.html", {'form': form})
+
+
+def newsletter_view(request):
+    if request.method == 'POST':
+        form = newsletterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')  # بازگشت به صفحه اصلی، یا مسیر دلخواه
+        else:
+            print("--- Newsletter Validation Failed ---")
+            print(form.errors)
+            return redirect('/')
+ 
 
 
 def test_view(request):
