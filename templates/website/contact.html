@@ -55,11 +55,11 @@
       <div class="col-lg-8">
         <form
           class="form-area contact-form text-right"
-          id="myForm"
-          action="mail.php"
+          action="{% url 'website:contact' %}"
           method="post"
         >
           <div class="row">
+              {% csrf_token %}
             <div class="col-lg-6 form-group">
               <input
                 name="name"
@@ -104,7 +104,7 @@
             </div>
             <div class="col-lg-12">
               <div class="alert-msg" style="text-align: left"></div>
-              <button class="genric-btn primary" style="float: right">
+              <button class="genric-btn primary" type="submit" style="float: right">
                 Send Message
               </button>
             </div>

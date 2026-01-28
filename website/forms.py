@@ -8,7 +8,6 @@ class NamForm(forms.Form):
 
 
 class ContactForm(forms.ModelForm):
-    last_name = forms.CharField(max_length=255)
     class Meta:
             model = Contact
             fields = '__all__'
