@@ -1,4 +1,7 @@
-{% extends 'base.html'%} {% load static %} {% block content %}
+{% extends 'base.html'%}
+{% block content %}
+
+{% load static %} 
 
 <!-- start banner Area -->
 <section class="relative about-banner">
@@ -113,82 +116,11 @@
           </div>
         </form>
 
-        {% if messages %} {% for message in messages %}
-        <div
-          class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show"
-          role="alert"
-        >
-          {{ message }}
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-          ></button>
-
-          {% if form.non_field_errors %}
-          <div class="alert alert-danger mt-2">{{ form.non_field_errors }}</div>
-          {% endif %} {% for field in form %} {% if field.errors %}
-          <div class="text-danger small mt-1">
-            {{ field.label }}: {{ field.errors }}
-          </div>
-          {% endif %} {% endfor %}
-        </div>
-        {% endfor %} {% endif %}
 
       </div>
     </div>
   </div>
 </section>
 <!-- End contact-page Area -->
+  {% endblock %}
 
-<!-- start footer Area -->
-<footer class="footer-area section-gap">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="single-footer-widget">
-          <h6>About Agency</h6>
-          <p>
-            The world has become so fast paced that people don’t want to stand
-            by reading a page of information, they would much rather look at a
-            presentation and understand the message. It has come to a point
-          </p>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="single-footer-widget">
-          <h6>Navigation Links</h6>
-          <div class="row">
-            <div class="col">
-              <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Feature</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Portfolio</a></li>
-              </ul>
-            </div>
-            <div class="col">
-              <ul>
-                <li><a href="#">Team</a></li>
-                <li><a href="#">Pricing</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Contact</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="single-footer-widget">
-          <h6>Newsletter</h6>
-          <p>
-            For business professionals caught between high OEM price and
-            mediocre print and graphic output.
-          </p>
-          {% endblock %}
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
