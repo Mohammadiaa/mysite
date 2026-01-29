@@ -11,6 +11,8 @@ class ContactForm(forms.ModelForm):
     class Meta:
             model = Contact
             fields = '__all__'
+            
+    name = forms.CharField(required=False)
 
 class newsletterForm(forms.ModelForm):
      class Meta:

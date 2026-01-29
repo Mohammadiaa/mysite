@@ -16,18 +16,17 @@ def contact_view(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.save()
+            ticket = form.save(commit=False)
+            ticket.name = "unknown"
+            ticket.save()
             messages.add_message(request,messages.SUCCESS, "your ticket submited successfully")
+            form = ContactForm()
         else:
             messages.add_message(request,messages.ERROR, "your ticket didnot submited")
-
-            return redirect('/')
         
     else:
-        messages.error(request, 'Please correct the errors in the form')
+        form = ContactForm()
 
-
-    form = ContactForm()
     return render(request, "website/contact.html", {'form': form})
 
 
