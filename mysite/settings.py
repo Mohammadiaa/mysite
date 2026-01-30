@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 print("DEBUG: BASE_DIR is:", BASE_DIR)
 print("DEBUG: Template DIRS is:", os.path.join(BASE_DIR, 'templates'))
+
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django_extensions',
     "django.contrib.sites",
+    'django.contrib.sitemaps'
 
 ]
 
