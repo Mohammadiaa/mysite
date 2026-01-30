@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
-def myblog_view(request, cat_name=None, author_username=None):
+def myblog_view(request, cat_name=None, author_username=None, tag_name=None):
     now = timezone.now()
     posts = Post.objects.filter(
         status=1, published_date__lte=now).order_by('-published_date')
@@ -13,6 +13,8 @@ def myblog_view(request, cat_name=None, author_username=None):
         posts = posts.filter(category__name=cat_name)
     if author_username:
         posts = posts.filter(author__username=author_username)
+    if tag_name:
+        posts = posts.filter(tags__name=tag_name)
 
     posts = Paginator(posts, 3)
     try:
