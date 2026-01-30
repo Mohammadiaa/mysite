@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'robots',
     "debug_toolbar",
     "taggit",
+    'django_summernote',
 
 ]
 
@@ -59,6 +60,39 @@ SITE_ID = 2
 # robots
 ROBOTS_USE_HOST = False
 ROBOTS_USE_SITEMAP = False
+
+# summernote configs
+# settings.py
+
+SUMMERNOTE_CONFIG = {
+    # Use internal resources if CDN access is restricted
+    'insecure_version': True, 
+    
+    # Specify Bootstrap version for styling consistency
+    'bootstrap_version': '4',  
+    
+    'widget_config': {
+        # Editor dimensions in admin panel
+        'width': '100%',  
+        'height': 500,    
+        
+        # Define visible toolbar buttons
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'undo', 'redo']],
+            ['help', ['help']]
+        ],
+    },
+}
+
 
 
 MIDDLEWARE = [
@@ -150,3 +184,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+X_FRAME_OPTIONS = 'SAMEORIGIN'

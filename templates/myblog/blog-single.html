@@ -72,31 +72,12 @@
 
           <div class="col-lg-9 col-md-9">
             <h3 class="mt-20 mb-20">{{ post.title }}</h3>
-            <p class="excert">{{ post.content }}</p>
+            <p class="excert">{{ post.content|safe }}</p>
 
-            <div class="quotes">
-              MCSE boots camps have its supporters and its detractors. Some
-              people do not understand why you should have to spend money on
-              boot camp when you can get the MCSE study materials yourself at a
-              fraction of the camp price. However, who has the willpower to
-              actually sit through a self-study program?
-            </div>
 
             <div class="row mt-30 mb-30">
-              <div class="col-6">
-                <img
-                  class="img-fluid"
-                  src="{% static 'img/blog/post-img1.jpg' %}"
-                  alt=""
-                />
-              </div>
-              <div class="col-6">
-                <img
-                  class="img-fluid"
-                  src="{% static 'img/blog/post-img2.jpg' %}"
-                  alt=""
-                />
-              </div>
+              
+              
             </div>
           </div>
         </div>
