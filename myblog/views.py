@@ -2,13 +2,15 @@ from django.shortcuts import render, get_object_or_404
 from myblog.models import Post, Comment
 from django.utils import timezone
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from myblog.forms import CommentForm
+from django.contrib import messages
 
 
 def myblog_view(request, cat_name=None, author_username=None, tag_name=None):
     now = timezone.now()
     posts = Post.objects.filter(
         status=1, published_date__lte=now).order_by('-published_date')
-    
+
     if cat_name:
         posts = posts.filter(category__name=cat_name)
     if author_username:
@@ -30,30 +32,45 @@ def myblog_view(request, cat_name=None, author_username=None, tag_name=None):
 
 
 def myblog_single(request, pid):
-    post = get_object_or_404(Post, id=pid, status=1,published_date__lte=timezone.now())
-    comments = Comment.objects.filter(post=post, approved=True)
-    all_posts = list(Post.objects.filter(status=1, published_date__lte=timezone.now()).order_by('published_date'))
-    current_post_index = all_posts.index(post)
+     post = get_object_or_404(Post, id=pid, status=1,published_date__lte=timezone.now())
+     comments = Comment.objects.filter(post=post, approved=True)
 
-    prev_post = None
-    next_post = None
+     if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            messages.add_message(request, messages.SUCCESS,'your comment submited successfully')
+        else:
+            messages.add_message(request, messages.ERROR,'your comment didnot submited')
+     else:
+        form = CommentForm()
 
-    if current_post_index > 0:  # قبلش پست هست
-        prev_post = all_posts[current_post_index - 1]
+     all_posts = list(Post.objects.filter(status=1, published_date__lte=timezone.now()).order_by('published_date'))
+     current_post_index = all_posts.index(post)
 
-    if current_post_index < len(all_posts) - 1:  # بعدش پست هست
-        next_post = all_posts[current_post_index + 1]
+     prev_post = None
+     next_post = None
 
-    context = {
-        'post': post,
-        'prev_post': prev_post,
-        'next_post': next_post,
-        'comments': comments}
+     if current_post_index > 0:  # قبلش پست هست
+      prev_post = all_posts[current_post_index - 1]
 
-    post.counted_views += 1
-    post.save()
+     if current_post_index < len(all_posts) - 1:  # بعدش پست هست
+      next_post = all_posts[current_post_index + 1]
 
-    return render(request, 'myblog/blog-single.html', context)
+     context = {
+    'post': post,
+    'prev_post': prev_post,
+    'next_post': next_post,
+    'comments': comments,
+    'form': form}
+
+     if request.method == 'GET':
+       post.counted_views += 1
+       post.save()
+
+     return render(request, 'myblog/blog-single.html', context)
 
 
 def test(request):
