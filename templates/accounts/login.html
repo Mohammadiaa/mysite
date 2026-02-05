@@ -17,7 +17,8 @@
 
         <form method="post" action="{% url 'accounts:login' %}">
             {% csrf_token %}
-            <div class="input-group">
+            {{form.as_p}}
+            {% comment %} <div class="input-group">
                 <input type="text" name="username" required>
                 <label>Username</label>
             </div>
@@ -25,7 +26,7 @@
             <div class="input-group">
                 <input type="password" name="password" required>
                 <label>Password</label>
-            </div>
+            </div> {% endcomment %}
 
             <button type="submit">Login</button>
         </form>
