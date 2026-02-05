@@ -4,8 +4,9 @@ from django.utils import timezone
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from myblog.forms import CommentForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def myblog_view(request, cat_name=None, author_username=None, tag_name=None):
     now = timezone.now()
     posts = Post.objects.filter(
