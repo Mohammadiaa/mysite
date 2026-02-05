@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>signup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+</head>
+<body>
+
+<div class="login-wrapper">
+    <div class="login-box">
+
+        <h2>signup</h2>
+
+        <form method="post" action="{% url 'accounts:signup' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% comment %} <div class="input-group">
+                <input type="text" name="username" placeholder="username" required>
+                <label>Username</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password1" placeholder="password" required>
+                <label>Password</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password2" placeholder="confirm password" required>
+                <label>confirm Password</label>
+            </div> {% endcomment %}
+
+            <button type="submit">signup</button>
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>
