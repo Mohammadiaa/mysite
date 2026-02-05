@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+    {% if request.user.is_authenticated %}
+        <p>"user is authenticated as {{request.user.username}}"</p>
+    {% else %}
+        <p>'user is not authenticated'</p>
+    {% endif %}
+  
+    {% comment %} <form method="post">
+        {% csrf_token %}
+
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+
+        <button type="submit">Login</button>
+    </form> {% endcomment %}
+    
+
+</body>
+</html>
+
