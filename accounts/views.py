@@ -15,15 +15,18 @@ def login_view(request):
                 user = form.get_user()
                 if user is not None:
                     login(request, user)
-                return redirect('/')
-            else:
-                return redirect('/')
+                    next_url = request.POST.get('next') or request.GET.get('next')
+                    return redirect(next_url if next_url else '/myblog/')
+                    
 
-        form = AuthenticationForm()
+        if request.method != "POST": 
+            form = AuthenticationForm()
+
         context = {'form': form}
         return render(request, 'accounts/login.html', context)
     else:
         return redirect('/')
+
     
 @login_required    
 def logout_view(request):

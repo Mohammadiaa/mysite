@@ -1,12 +1,13 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from myblog.models import Post, Comment
 from django.utils import timezone
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from myblog.forms import CommentForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
-@login_required
 def myblog_view(request, cat_name=None, author_username=None, tag_name=None):
     now = timezone.now()
     posts = Post.objects.filter(
@@ -33,45 +34,55 @@ def myblog_view(request, cat_name=None, author_username=None, tag_name=None):
 
 
 def myblog_single(request, pid):
-     post = get_object_or_404(Post, id=pid, status=1,published_date__lte=timezone.now())
-     comments = Comment.objects.filter(post=post, approved=True)
+    post = get_object_or_404(Post, id=pid, status=1, published_date__lte=timezone.now())
 
-     if request.method == 'POST':
+    if post.login_require and not request.user.is_authenticated:
+        # return redirect('accounts:login') 
+         return redirect(reverse('accounts:login'))
+
+    comments = Comment.objects.filter(post=post, approved=True)
+
+    if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
+            
+            if request.user.is_authenticated:
+                comment.name = request.user.first_name
+                comment.email = request.user.email
             comment.save()
-            messages.add_message(request, messages.SUCCESS,'your comment submited successfully')
+            messages.success(request, 'your comment submitted successfully')
         else:
-            messages.add_message(request, messages.ERROR,'your comment didnot submited')
-     else:
+            messages.error(request, 'your comment did not submit')
+    else:
         form = CommentForm()
 
-     all_posts = list(Post.objects.filter(status=1, published_date__lte=timezone.now()).order_by('published_date'))
-     current_post_index = all_posts.index(post)
+    all_posts = list(Post.objects.filter(status=1, published_date__lte=timezone.now()).order_by('published_date'))
+    current_post_index = all_posts.index(post)
 
-     prev_post = None
-     next_post = None
+    prev_post = None
+    next_post = None
 
-     if current_post_index > 0:  # قبلش پست هست
-      prev_post = all_posts[current_post_index - 1]
+    if current_post_index > 0:
+        prev_post = all_posts[current_post_index - 1]
 
-     if current_post_index < len(all_posts) - 1:  # بعدش پست هست
-      next_post = all_posts[current_post_index + 1]
+    if current_post_index < len(all_posts) - 1:
+        next_post = all_posts[current_post_index + 1]
 
-     context = {
-    'post': post,
-    'prev_post': prev_post,
-    'next_post': next_post,
-    'comments': comments,
-    'form': form}
+    context = {
+        'post': post,
+        'prev_post': prev_post,
+        'next_post': next_post,
+        'comments': comments,
+        'form': form
+    }
 
-     if request.method == 'GET':
-       post.counted_views += 1
-       post.save()
+    if request.method == 'GET':
+        post.counted_views += 1
+        post.save()
 
-     return render(request, 'myblog/blog-single.html', context)
+    return render(request, 'myblog/blog-single.html', context)
 
 
 def test(request):
