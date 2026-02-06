@@ -17,14 +17,23 @@
 
         <form method="post" action="{% url 'accounts:login' %}">
             {% csrf_token %}
+            
+            {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+           <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+           {% endfor %}
+           </ul>
+           {% endif %}
+
             {% if form.errors %}
             <p style="color:red">Username or password is wrong</p>
             {% endif %}
 
             <input type="hidden" name="next" value="{{ request.GET.next }}">
             <div class="input-group">
-                <input type="text" name="username" placeholder="Username" required>
-                <label>Username</label>
+                <input type="text" name="username_or_email" placeholder="Username or email" required>
+                <label>Username or Email</label>
             </div>
 
             <div class="input-group">
